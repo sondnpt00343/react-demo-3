@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/services/auth/authService";
 
 const initialState = {
     currentUser: null,
+    fetching: false,
 };
 
 export const authSlice = createSlice({
@@ -15,11 +16,16 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(getCurrentUser.pending, (state) => {
+                state.fetching = true;
+            })
             .addCase(getCurrentUser.fulfilled, (state, action) => {
                 state.currentUser = action.payload;
+                state.fetching = false;
             })
             .addCase(getCurrentUser.rejected, (state) => {
                 state.currentUser = null;
+                state.fetching = false;
             });
     },
 });
