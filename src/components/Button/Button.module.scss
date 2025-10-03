@@ -1,0 +1,59 @@
+.wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+.inner {
+    &.hidden {
+        visibility: hidden;
+    }
+}
+
+.primary {
+    color: #fff;
+    background: #a423a4;
+}
+
+.rounded {
+    border-radius: 999px;
+}
+
+.bordered {
+    color: #a423a4;
+    border-color: currentColor;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+// Sizes
+.small {
+    padding: 2px 12px;
+    font-size: 1.4rem;
+}
+
+.medium {
+    padding: 4px 16px;
+}
+
+.large {
+    padding: 6px 20px;
+    font-size: 1.8rem;
+}
+
+.icon {
+}
