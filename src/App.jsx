@@ -12,8 +12,14 @@ import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
 import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import { useEffect } from "react";
+import { httpClient } from "./utils/http";
 
 function App() {
+    useEffect(() => {
+        httpClient.get("/auth/devices");
+    }, []);
+
     return (
         <BrowserRouter>
             <AuthProvider />
