@@ -7,12 +7,12 @@ import { selectList as selectProductsList } from "@/features/product";
 /**
  *
  */
-export const useFetchProductsList = () => {
+export const useFetchProductsList = ({ limit, page } = {}) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getProductsList());
-    }, [dispatch]);
+        dispatch(getProductsList({ limit, page }));
+    }, [dispatch, limit, page]);
 };
 
 /**

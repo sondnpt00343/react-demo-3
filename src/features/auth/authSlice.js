@@ -3,7 +3,7 @@ import { getCurrentUser } from "@/services/auth/authService";
 
 const initialState = {
     currentUser: null,
-    fetching: false,
+    fetching: true,
 };
 
 export const authSlice = createSlice({

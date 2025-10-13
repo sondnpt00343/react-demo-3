@@ -3,12 +3,13 @@ import axios from "axios";
 // ============================================
 // PHẦN 1: TẠO HTTP CLIENT CƠ BẢN
 // ============================================
+const baseURL = import.meta.env.VITE_BASE_API;
 
 // Tạo một "công cụ gọi API" riêng cho ứng dụng của chúng ta
 // Giống như bạn có một chiếc điện thoại đã cài sẵn số hotline,
 // không cần gõ lại địa chỉ API mỗi lần gọi
 export const httpClient = axios.create({
-    baseURL: import.meta.env.VITE_BASE_API,
+    baseURL,
     // baseURL: đây là địa chỉ gốc của server API (ví dụ: https://api.example.com)
     // Các lần gọi API sau chỉ cần thêm đường dẫn phía sau (ví dụ: /users, /products)
 });
@@ -66,13 +67,13 @@ const processQueue = (error) => {
 const refreshToken = async () => {
     try {
         // Gọi API làm mới token bằng refreshToken hiện có
-        const result = await post("/auth/refresh-token", {
+        const result = await axios.post(`${baseURL}/auth/refresh-token`, {
             refresh_token: localStorage.getItem("refreshToken"),
         });
 
         // Lưu cặp token mới vào localStorage
-        localStorage.setItem("accessToken", result.data.access_token);
-        localStorage.setItem("refreshToken", result.data.refresh_token);
+        localStorage.setItem("accessToken", result.data.data.access_token);
+        localStorage.setItem("refreshToken", result.data.data.refresh_token);
 
         // Thông báo thành công cho tất cả request đang chờ
         processQueue(null);

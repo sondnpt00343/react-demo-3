@@ -1,19 +1,29 @@
+import { lazy, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import Counter from "@/pages/Counter";
-import ProductsList from "@/pages/ProductsList";
-import ProvincesList from "./pages/Address/ProvincesList";
-import ProvincesList2 from "./pages/Address/ProvincesList2";
-import Assets from "@/pages/Assets";
-import Icons from "@/pages/Icons";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+
+// Pages
+// import Counter from "@/pages/Counter";
+const Counter = lazy(() => import("@/pages/Counter"));
+const ProductsList = lazy(() => import("@/pages/ProductsList"));
+const ProvincesList = lazy(() => import("@/pages/Address/ProvincesList"));
+const ProvincesList2 = lazy(() => import("@/pages/Address/ProvincesList2"));
+const Assets = lazy(() => import("@/pages/Assets"));
+const Icons = lazy(() => import("@/pages/Icons"));
+const Register = lazy(() => import("@/pages/Auth/Register"));
+const Login = lazy(() => import("@/pages/Auth/Login"));
+const PortalDemo = lazy(() => import("@/pages/PortalDemo"));
+
+// Components
 import Header from "./components/Header";
 import AuthProvider from "./components/AuthProvider";
-import Register from "./pages/Auth/Register";
-import Login from "./pages/Auth/Login";
-import Profile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
-import { useEffect } from "react";
+
 import { httpClient } from "./utils/http";
+import UseReducer from "./pages/UseReducer";
+import PostDetail from "./pages/PostDetail";
 
 function App() {
     useEffect(() => {
@@ -26,11 +36,16 @@ function App() {
             <Header />
 
             <Routes>
+                <Route index element={<Home />} />
                 <Route path="/address/provinces" element={<ProvincesList />} />
+                <Route path="/portal-demo" element={<PortalDemo />} />
+                <Route path="/use-reducer" element={<UseReducer />} />
                 <Route
                     path="/address/provinces2"
                     element={<ProvincesList2 />}
                 />
+                <Route path="/products" element={<ProductsList />} />
+                <Route path="/post-detail" element={<PostDetail />} />
 
                 <Route path="/assets" element={<Assets />} />
                 <Route path="/icons" element={<Icons />} />
@@ -42,7 +57,6 @@ function App() {
                 <Route element={<PrivateRoute />}>
                     <Route path="/counter" element={<Counter />} />
                     <Route path="/profile" element={<Profile />} />
-                    <Route path="/products" element={<ProductsList />} />
                 </Route>
             </Routes>
         </BrowserRouter>

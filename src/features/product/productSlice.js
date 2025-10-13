@@ -3,6 +3,9 @@ import { getList } from "@/services/product/productService";
 
 const initialState = {
     list: [],
+    pagination: {
+        last_page: 0,
+    },
     loading: false,
 };
 
@@ -20,7 +23,10 @@ export const productSlice = createSlice({
                 state.loading = true;
             })
             .addCase(getList.fulfilled, (state, action) => {
-                state.list = action.payload.items;
+                const { items, pagination } = action.payload;
+
+                state.list = [...state.list, ...items];
+                state.pagination = pagination;
                 state.loading = false;
             })
             .addCase(getList.rejected, (state) => {
